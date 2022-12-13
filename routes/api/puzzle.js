@@ -25,4 +25,37 @@ router.post("/", async (req, res) => {
   }
 });
 
+//by sagiv
+router.patch("/", async (req, res) => {
+  try {
+    const validatedValue = await puzzleValidation.validateUpPuzzleSchema(
+      req.body
+    );
+    const userData = await puzzleModel.updatePuzzleById(
+      validatedValue.id,
+      validatedValue.name,
+      validatedValue.pcs,
+      validatedValue.difficulty
+    );
+
+    res.json({ msg: "puzzle updated" });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ error: err });
+  }
+});
+
+//by adel
+router.delete("/:id", async (req, res) => {
+  try {
+    const validatedValues = await puzzleValidation.validateDeletePuzzleSchema(
+      req.params
+    );
+    const puzzleData = await puzzleModel.deletePuzzleById(validatedValues.id);
+    res.json(puzzleData);
+  } catch (err) {
+    res.status(400).json({ error: err });
+  }
+});
+
 module.exports = router;

@@ -23,4 +23,23 @@ const createPuzzle = (puzzleData) => {
   return puzzle.save();
 };
 
-module.exports = { selectAll, createPuzzle };
+//by sagiv
+const updatePuzzleById = (id, name, pcs, difficulty) => {
+  return Puzzle.findByIdAndUpdate(id, {
+    name,
+    pcs,
+    difficulty,
+  });
+};
+
+//by adel
+const deletePuzzleById = (id) => {
+  return Puzzle.findByIdAndDelete(id);
+};
+
+module.exports = {
+  selectAll,
+  createPuzzle,
+  updatePuzzleById,
+  deletePuzzleById,
+};
